@@ -1,9 +1,10 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
-import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { CategoryModule } from './category/category.module';
 import { ProductsModule } from './products/products.module';
+import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core"
+import { CategoryResolver } from "./category/category.resolver";
 
 @Module({
   imports: [
@@ -13,10 +14,11 @@ import { ProductsModule } from './products/products.module';
       playground: false,
       autoSchemaFile: true,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
-    }),, CategoryModule, ProductsModule
-    ,
+    }), CategoryModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule {
+
+}

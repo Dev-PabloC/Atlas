@@ -7,8 +7,6 @@ import { UpdateProductInput } from "./dto/update-product.input";
 export class ProductsService {
   constructor(
     private database: PrismaService,
-    private req: Request,
-    private res: Response
   ) {}
   create(createProductInput: CreateProductInput) {
     return "This action adds a new product";

@@ -8,12 +8,16 @@ import { Category } from "@prisma/client";
 export class CategoryService {
   constructor(
     private database: PrismaService,
-  ) {}
-  create(createCategoryInput: CreateCategoryInput): Promise<Category | null> {
+  ) { }
+  create(createCategoryInput: CreateCategoryInput) {
     return this.database.category.create({
       data: {
-        name: createCategoryInput.name,
+        ...createCategoryInput
       },
+      select: {
+        id: true,
+        name: true
+      }
     });
   }
 
@@ -25,16 +29,16 @@ export class CategoryService {
     return this.database.category.findFirst({ where: { id: _id } });
   }
 
-  update(id: string, updateCategoryInput: UpdateCategoryInput) {
+  update(_id: string, updateCategoryInput: UpdateCategoryInput) {
     return this.database.category.update({
-      where: { id: id },
+      where: { id: _id },
       data: {
         name: updateCategoryInput.name,
       },
     });
   }
 
-  remove(id: string) {
-    return this.database.category.delete({ where: { id: id } });
+  remove(_id: string) {
+    return this.database.category.delete({ where: { id: _id } });
   }
 }
