@@ -1,24 +1,27 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { ProductsModule } from "./products/products.module";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
-import { CategoryModule } from './category/category.module';
-import { ProductsModule } from './products/products.module';
-import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core"
-import { CategoryResolver } from "./category/category.resolver";
+import { CategoryModule } from "./category/category.module";
+import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
+import { OrderModule } from "./order/order.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
+    CategoryModule,
+    OrderModule,
+    AuthModule,
+    ProductsModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       debug: false,
       playground: false,
       autoSchemaFile: true,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
-    }), CategoryModule,
+    }),
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {
-
-}
+export class AppModule {}
