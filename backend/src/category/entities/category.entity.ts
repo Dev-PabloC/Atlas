@@ -4,7 +4,7 @@ import { Product } from "src/products/entities/product.entity";
 @ObjectType()
 export class Category {
   @Field({})
-  id: string
+  id: string;
 
   @Field()
   name: string;
@@ -16,17 +16,17 @@ export class Category {
 @ObjectType()
 export class CategoryCreate {
   @Field()
-  id: string
+  id: string;
 
   @Field()
-  name: string
+  name: string;
 }
 
 @ObjectType()
 export class CategoryUpdate {
   @Field()
-  id: string
+  id: string;
 
   @Field()
-  name: string
+  name: string;
 }
