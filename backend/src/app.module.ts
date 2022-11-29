@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
 import { ProductsModule } from "./products/products.module";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
@@ -27,6 +27,19 @@ import { AuthMiddleware } from "./middleware/auth.middleware";
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes("category", "products");
+    consumer.apply(AuthMiddleware).exclude(
+      {
+        path: "category",
+        method: RequestMethod.GET,
+      },
+      {
+        path: "products",
+        method: RequestMethod.GET,
+      },
+      {
+        path: "order",
+        method: RequestMethod.POST,
+      },
+    );
   }
 }

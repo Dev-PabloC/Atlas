@@ -6,18 +6,16 @@ import { Category } from "@prisma/client";
 
 @Injectable()
 export class CategoryService {
-  constructor(
-    private database: PrismaService,
-  ) { }
+  constructor(private database: PrismaService) {}
   create(createCategoryInput: CreateCategoryInput) {
     return this.database.category.create({
       data: {
-        ...createCategoryInput
+        ...createCategoryInput,
       },
       select: {
         id: true,
-        name: true
-      }
+        name: true,
+      },
     });
   }
 
