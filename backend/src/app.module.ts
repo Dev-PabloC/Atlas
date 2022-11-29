@@ -6,6 +6,7 @@ import { CategoryModule } from "./category/category.module";
 import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { OrderModule } from "./order/order.module";
 import { AuthModule } from "./auth/auth.module";
+import { AuthMiddleware } from "./middleware/auth.middleware";
 
 @Module({
   imports: [
@@ -24,4 +25,8 @@ import { AuthModule } from "./auth/auth.module";
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes("category", "products");
+  }
+}
